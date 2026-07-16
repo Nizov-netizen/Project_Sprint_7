@@ -1,12 +1,13 @@
-package BaseApiTest;
+package ru.yandex.qascooter.basetest;
 
 import io.restassured.RestAssured;
+import io.restassured.response.Response;
+import model.CourierLogin;
 import org.junit.After;
 import org.junit.Before;
 import steps.CourierSteps;
 
-import static data.CourierData.BASE_URL;
-import static data.CourierData.generateNewData;
+import static data.CourierData.*;
 
 public class BaseApiTestCourier {
 
@@ -19,6 +20,10 @@ public class BaseApiTestCourier {
     }
     @After
     public void tearDown(){
+        if (courierId == null) {
+            Response loginResponse = CourierSteps.loginCourier(new CourierLogin(login, password));
+            courierId = loginResponse.jsonPath().getString("id");
+        }
         if (courierId != null) {
             CourierSteps.delete(courierId);
         }

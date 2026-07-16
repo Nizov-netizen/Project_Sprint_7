@@ -1,6 +1,6 @@
-package OrderTest;
+package ru.yandex.qascooter.ordertest;
 
-import BaseApiTest.BaseApiTestOrder;
+import ru.yandex.qascooter.basetest.BaseApiTestOrder;
 import data.OrderData;
 import io.restassured.response.Response;
 import model.OrderModel;
@@ -13,6 +13,7 @@ import java.util.Arrays;
 import java.util.Collection;
 
 import static data.OrderData.*;
+import static org.apache.http.HttpStatus.SC_CREATED;
 import static org.hamcrest.CoreMatchers.notNullValue;
 
 @RunWith(Parameterized.class)
@@ -44,7 +45,7 @@ public class CreateOrderTest extends BaseApiTestOrder {
 
         response.then()
                 .log().all()
-                .statusCode(201)
+                .statusCode(SC_CREATED)
                 .body("track", notNullValue());
 
         orderTrack = response.jsonPath().getString("track");
