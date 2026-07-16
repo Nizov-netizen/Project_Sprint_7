@@ -24,8 +24,6 @@ public class CreateCourierTest extends BaseApiTestCourier {
                 .log().all()
                 .statusCode(SC_CREATED)
                 .body("ok",equalTo(true));
-
-        CourierLogin loginData = new CourierLogin(login, password);
     }
 
     @Test
